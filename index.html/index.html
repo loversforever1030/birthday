@@ -204,7 +204,7 @@ p{font-size:14px;line-height:1.8;max-width:650px;margin:12px auto}
   <div class="captcha-shell">
    <div class="card" style="padding:30px 20px">
     <div class="kicker">one small obstacle</div>
-    <h2 style="font-size:48px">what ihab love the moste ?</h2>
+    <h2 style="font-size:48px">what ihab love the most ?</h2>
     <div class="real-captcha" id="captchaBox">
       <div class="checkbox-row">
        <button id="cb" class="checkbox" aria-label="I'm not a robot" onclick="startCaptcha()"> </button>
@@ -308,17 +308,52 @@ p{font-size:14px;line-height:1.8;max-width:650px;margin:12px auto}
    happy birthday arnoubati w kol 3am w nti ta3i w rabi yhafdak lya . rani fa5or bik bzaf fi g3 wach drti . w madabya nchofak nti top one . inshalah l3wam ljayin ykono 5ir w inshalah nchofok ghir tdhki 
    psq nchofak frhana hya afdal mandar 3andi . nhabak bzaf khaoula ♡ </p>
    <div class="signature">with love ♡</div>
-   <div style="text-align:center;margin-top:24px">
-    <button class="btn alt" id="videoButton" onclick="showVideo()" style="display:none">watch your video ♡</button>
-    <div id="readMarker" class="micro" style="margin-top:14px">scroll to the end of the letter when you finish reading</div>
-    <div class="video-wrap" id="videoWrap"><video id="myVideo" controls playsinline muted preload="metadata"><source src="assets/video.mp4" type="video/mp4">Your browser cannot play this video.</video><div class="video-note">mybe iam not the best at saying cute things but i still love you so much my little arnouba.</div></div>
-   </div>
+   
+<!-- END OF LETTER -->
+<div id="letterEnd" style="height:1px;"></div>
+
+<div style="text-align:center;margin-top:24px">
+
+  <button
+    class="btn alt"
+    id="videoButton"
+    style="display:none"
+    onclick="showVideo()">
+    watch your video ♡
+  </button>
+
+  <div
+    id="readMarker"
+    class="micro"
+    style="margin-top:14px">
+    scroll to the end of the letter when you finish reading
   </div>
- </div>
-</section>
+
+  <div
+    class="video-wrap"
+    id="videoWrap"
+    style="display:none;margin-top:24px">
+
+    <video
+      id="myVideo"
+      controls
+      playsinline
+      muted
+      preload="metadata"
+      style="width:100%;max-width:700px;border-radius:14px;display:block;margin:auto">
+
+      <source src="assets/video.mp4" type="video/mp4">
+
+      Your browser cannot play this video.
+    </video>
+
+    <div class="video-note">
+      mybe iam not the best at saying cute things but i still love you so much my little arnouba.
+    </div>
+
+  </div>
 
 </div>
-
 <script>
 // EASY PERSONALIZATION
 const birthdayConfig = {
@@ -585,7 +620,62 @@ if(finalLetter){
  },{threshold:0.7});
  observer.observe(finalLetter);
 }
+function showVideo() {
+  const button = document.getElementById("videoButton");
+  const videoWrap = document.getElementById("videoWrap");
+  const marker = document.getElementById("readMarker");
 
+  if (marker) {
+    marker.style.display = "none";
+  }
+
+  if (videoWrap) {
+    videoWrap.style.display = "block";
+  }
+
+  if (button) {
+    button.style.display = "none";
+  }
+
+  if (videoWrap) {
+    setTimeout(() => {
+      videoWrap.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }, 100);
+  }
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const letterEnd = document.getElementById("letterEnd");
+  const videoButton = document.getElementById("videoButton");
+  const readMarker = document.getElementById("readMarker");
+
+  if (!letterEnd || !videoButton) return;
+
+  const observer = new IntersectionObserver((entries) => {
+
+    if (entries[0].isIntersecting) {
+
+      videoButton.style.display = "inline-flex";
+
+      if (readMarker) {
+        readMarker.style.display = "none";
+      }
+
+      observer.disconnect();
+    }
+
+  }, {
+    threshold: 0.5
+  });
+
+  observer.observe(letterEnd);
+
+});
 </script>
 </body>
 </html>
