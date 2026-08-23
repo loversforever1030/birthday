@@ -1,0 +1,2 @@
+Put your video here as assets/video.mp4
+The player is muted by default because the website itself has no sound.
